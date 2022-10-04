@@ -1,4 +1,5 @@
 const path = require('path');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 module.exports = {
     mode : 'development',
@@ -7,7 +8,7 @@ module.exports = {
         extensions: ['.jsx','.js'],
     },
     entry: {
-        app: './client',
+        app: ['./client'],
     },
     module:{
         rules:[{
@@ -20,15 +21,24 @@ module.exports = {
                         browsers:['last 2 chrome versions'],
                     },
                     }], '@babel/preset-react'],
-                plugins:[]
+                plugins:[
+                    '@babel/plugin-proposal-class-properties',
+                    'react-refresh/babel',
+                ],
             }
         }],
     },
     plugins:[
-
+        new RefreshWebpackPlugin({overlay:false}),
     ],
     output:{
         path:path.join(__dirname,'dist'),
         filename: 'app.js',
+        publicPath: '/dist/',
+    },
+    devServer: {
+        devMiddleware: {publicPath:'/dist'},
+        static: {directory: path.resolve(__dirname)},
+        hot: true
     },
 };
