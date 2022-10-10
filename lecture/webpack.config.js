@@ -2,7 +2,7 @@ const path = require('path')
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 module.exports = {
-    name: 'wordrelay-setting',
+    name: 'setting',
     mode: 'development', //실서비스 : production
     devtool: 'eval',
     resolve: {
@@ -29,12 +29,12 @@ module.exports = {
         new RefreshWebpackPlugin({overlay:false}),
     ],
     output:{
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'build'),
         filename: 'app.js',
-        publicPath: '/dist/',
+        publicPath: '/build/',
     }, //출력
     devServer: {
-        devMiddleware: {publicPath:'/dist'},
+        devMiddleware: {publicPath:'/build'},
         static: {directory: path.resolve(__dirname) },
         hot: true
     },
